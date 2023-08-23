@@ -7,8 +7,9 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
+
 mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log('connected to DB'))
+.then(() => console.log('connected do DB'))
 .catch(error => console.log(error.message))
 
 const postSchema = new mongoose.Schema({

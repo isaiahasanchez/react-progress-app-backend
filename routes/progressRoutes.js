@@ -2,6 +2,7 @@ const express = require('express');
 const progressController = require('../controllers/progressController');
 const router = express.Router();
 
+
 router
     .route('/')
     .get(progressController.getAllProgress)
@@ -17,3 +18,5 @@ router
 router
     .route('/delete/:id')
     .post(progressController.getDeleteProgress)
+    
+    
