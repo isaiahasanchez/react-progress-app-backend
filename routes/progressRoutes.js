@@ -2,7 +2,7 @@ const express = require('express');
 const progressController = require('../controllers/progressController');
 const router = express.Router();
 
-
+// Routes
 router
     .route('/')
     .get(progressController.getAllProgress)
