@@ -2,21 +2,18 @@ const express = require('express');
 const progressController = require('../controllers/progressController');
 const router = express.Router();
 
+router
+    .route('/posts')
+    .get(progressController.getAllPosts)
+    .post(progressController.createNewPost); // Updated for consistency
 
 router
-    .route('/')
-    .get(progressController.getAllProgress)
-
-router
-    .route('/upload')
-    .get(progressController.getUploadProgress)
+    .route('/posts/:id')
+    .get(progressController.getOnePost)
+    .delete(progressController.deletePost);
 
 router
     .route('/edit/:id')
-    .get(progressController.getEditProgress)
+    .get(progressController.editPost);
 
-router
-    .route('/delete/:id')
-    .post(progressController.getDeleteProgress)
-    
-    
+module.exports = router;
