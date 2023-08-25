@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-    title: String,
-    author: String,
-    image: String,
-    content: String
-})
+  exercise: String,
+  equipment: String,
+  image: String,
+  sets: String,
+  editMode: Boolean, // The editMode field is now simply defined as a Boolean
+});
 
-const Post = mongoose.model('Post', postSchema)
+const Post = mongoose.model('Post', postSchema);
 module.exports = Post;
