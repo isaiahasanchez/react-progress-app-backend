@@ -10,10 +10,7 @@ router
 router
     .route('/posts/:id')
     .get(progressController.getOnePost)
-    .delete(progressController.deletePost);
-
-router
-    .route('/edit/:id')
-    .get(progressController.editPost);
+    .delete(progressController.deletePost)
+    .put(progressController.editPost); // Updated for consistency
 
 module.exports = router;
