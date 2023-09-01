@@ -5,7 +5,11 @@ const postSchema = new mongoose.Schema({
   equipment: String,
   image: String,
   sets: String,
-  editMode: Boolean, // The editMode field is now simply defined as a Boolean
+  editMode: Boolean,
+  lastDateEdited: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 const Post = mongoose.model('Post', postSchema);

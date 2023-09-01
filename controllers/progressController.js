@@ -33,7 +33,11 @@ const createNewPost = async (req, res) => {
 
 const editPost = async (req, res) => {
     try {
-        const updatedPost = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updatedPost = await Post.findByIdAndUpdate(req.params.id, {
+            ...req.body,
+            lastDateEdited: Date.now()
+        },
+         { new: true });
         res.send(updatedPost);
     } catch (error) {
         console.error(error);
