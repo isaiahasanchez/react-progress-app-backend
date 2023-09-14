@@ -4,10 +4,7 @@ const postSchema = new mongoose.Schema({
   exercise: String,
   equipment: String,
   image: String,
-  sets: [{
-    weight: Number,
-    reps: Number
-  }],
+  sets: String,
   editMode: Boolean,
   lastDateEdited: {
     type: Date,
