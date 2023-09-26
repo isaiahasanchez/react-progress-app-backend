@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport')
 const progressController = require('../controllers/progressController');
 const router = express.Router();
 
@@ -13,4 +14,12 @@ router
     .delete(progressController.deletePost)
     .put(progressController.editPost); // Updated for consistency
 
+router 
+    .route('/register')
+    .post(progressController.createNewUser)
+
+
+router
+    .route('/login')
+    .post(passport.authenticate('local'), progressController.login)
 module.exports = router;

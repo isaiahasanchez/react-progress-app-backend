@@ -1,4 +1,19 @@
 const Post = require('../models/progressModel');
+const User = require('../models/user');
+
+const createNewUser = async (req,res) => {
+    try {
+        const user = new User(req.body);
+        await user.save();
+        res.status(201).send({ user });
+      } catch (error) {
+        res.status(400).send(error);
+      }
+}
+
+const login = async (req,res) => {
+    res.send({ user:req.user })
+}
 
 const getAllPosts = async (req, res) => {
     try {
@@ -61,5 +76,7 @@ module.exports = {
     getOnePost,
     createNewPost,
     deletePost,
-    editPost
+    editPost,
+    createNewUser,
+    login
 };
