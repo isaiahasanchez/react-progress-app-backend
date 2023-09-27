@@ -21,11 +21,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+
 app.use('/', progressRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log('connected do DB'))
 .catch(error => console.log(error.message))
+
+
 
 app.listen(5500, () => console.log('Server started on port 5500'))
 

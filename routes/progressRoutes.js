@@ -2,17 +2,19 @@ const express = require('express');
 const passport = require('passport')
 const progressController = require('../controllers/progressController');
 const router = express.Router();
+const { ensureAuthenticated } = require('../middleware/authMiddleware');
+
 
 router
     .route('/posts')
-    .get(progressController.getAllPosts)
-    .post(progressController.createNewPost); // Updated for consistency
+    .get(ensureAuthenticated, progressController.getAllPosts)
+    .post(ensureAuthenticated, progressController.createNewPost); // Updated for consistency
 
 router
     .route('/posts/:id')
-    .get(progressController.getOnePost)
-    .delete(progressController.deletePost)
-    .put(progressController.editPost); // Updated for consistency
+    .get(ensureAuthenticated, progressController.getOnePost)
+    .delete(ensureAuthenticated, progressController.deletePost)
+    .put(ensureAuthenticated, progressController.editPost); // Updated for consistency
 
 router 
     .route('/register')

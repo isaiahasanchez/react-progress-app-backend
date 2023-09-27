@@ -14,4 +14,9 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, passwor
 }));
 
 passport.serializeUser((user, done) => done(null, user.id));
-passport.deserializeUser((id, done) => User.findById(id, (err, user) => done(err, user)));
+passport.deserializeUser((id, done) => {
+  User.findById(id)
+      .then((user) => done(null, user))
+      .catch((err) => done(err));
+});
+
