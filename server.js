@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path'); // New Import
 require('dotenv').config();
+const MongoStore = require('connect-mongo');
+
 
 const progressRoutes = require('./routes/progressRoutes');
 
@@ -14,7 +16,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-    origin: 'http://localhost:3000', // Update with your deployed frontend URL once deployed
+    origin: 'https://progress-exercise-rehab-log.netlify.app/login', // deployed frontend URL
     credentials: true,
 }));
 
@@ -22,7 +24,13 @@ app.use(cors({
 app.use(express.static(path.resolve(__dirname, '../../react-progress-app-frontend/progress-app/build')));
 
 // Initializing Session
-app.use(session({ secret: process.env.SESSION_KEY, resave: false, saveUninitialized: false }));
+app.use(session({ 
+    secret: process.env.SESSION_KEY, 
+    resave: false, 
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }), // use connect-mongo as session store
+  }));
+  
 
 // Initializing Passport
 app.use(passport.initialize());
@@ -42,4 +50,5 @@ mongoose.connect(process.env.MONGO_URI)
     .catch(error => console.log(error.message));
 
 // Start the server
-app.listen(5500, () => console.log('Server started on port 5500'));
+const port = process.env.PORT || 5500;
+app.listen(port, () => console.log(`Server started on port ${port}`));
