@@ -24,10 +24,10 @@ app.use(
 app.use(
   session({
     secret: process.env.SESSION_KEY,
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }), // use connect-mongo as session store
-    cookie: { secure: false, sameSite: "none" },
+    cookie: { secure: true, sameSite: "none" },
   })
 );
 
