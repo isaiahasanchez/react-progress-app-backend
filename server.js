@@ -27,7 +27,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }), // use connect-mongo as session store
-    cookie: { sameSite: "none" },
+    cookie: { secure: true, sameSite: "none" },
   })
 );
 
