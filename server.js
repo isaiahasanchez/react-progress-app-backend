@@ -18,7 +18,7 @@ app.set('trust proxy', 1); // trust first proxy, important if your app is behind
 app.use(express.json());
 
 app.use(cors({
-  origin: "https://progress-exercise-rehab-log.netlify.app",
+  origin: "https://progressexerciselog.netlify.app",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   preflightContinue: false,
