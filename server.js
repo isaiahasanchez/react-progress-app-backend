@@ -17,8 +17,20 @@ app.set('trust proxy', 1); // trust first proxy, important if your app is behind
 
 app.use(express.json());
 
+// Below are the origins that Cors will allow to work.
+const allowedOrigins = [
+  'https://progressexerciselog.netlify.app',
+  'http://localhost:3001' // add this
+];
+
 app.use(cors({
-  origin: "https://progressexerciselog.netlify.app",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   preflightContinue: false,
