@@ -37,5 +37,8 @@ router
       });
     });
   });
+
+  router.get('/current-user', ensureAuthenticated, progressController.getCurrentUser);
+
   
 module.exports = router;

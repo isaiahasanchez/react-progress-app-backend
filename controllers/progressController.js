@@ -15,6 +15,10 @@ const login = async (req,res) => {
     res.send({ user:req.user })
 }
 
+const getCurrentUser = (req, res) => {
+    res.send(req.user);
+}
+
 const getAllPosts = async (req, res) => {
     try {
         const userId = req.user._id; // Getting the user id from the session
@@ -87,5 +91,6 @@ module.exports = {
     deletePost,
     editPost,
     createNewUser,
-    login
+    login,
+    getCurrentUser
 };
