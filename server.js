@@ -18,11 +18,11 @@ app.set('trust proxy', 1); // trust first proxy, important if your app is behind
 app.use(express.json());
 
 // Below are the origins that Cors will allow to work.
-const allowedOrigins = [
-  'https://progressexerciselog.netlify.app',
-  'https://progress-exercise-and-rehab-log-app.onrender.com',
-  'http://localhost:3000' // add this
-];
+// const allowedOrigins = [
+//   'https://progressexerciselog.netlify.app',
+//   'https://progress-exercise-and-rehab-log-app.onrender.com',
+//   'http://localhost:3000' // add this
+// ];
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -48,7 +48,7 @@ app.use(
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }), // use connect-mongo as session store
     cookie: {
       secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      sameSite: 'none',
   },
   })
 );
