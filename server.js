@@ -19,6 +19,13 @@ app.set('trust proxy', 1); // trust first proxy, important if your app is behind
 
 app.use(express.json());
 
+// Add a middleware for request logging:
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} to ${req.url}`);
+  console.log('Headers:', JSON.stringify(req.headers));
+  next();
+});
+
 // Below are the origins that Cors will allow to work.
 const allowedOrigins = [
   'https://progressexerciselog.netlify.app',
@@ -32,7 +39,7 @@ app.use(cors({
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error('Not allowed by CORS policy switch it up'));
     }
   },
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -69,6 +76,11 @@ app.use(passport.session());
 
 // Use your routes after initializing passport and session
 app.use("/", progressRoutes);
+
+app.use((req, res, next) => {
+  console.log('Session data:', req.session);
+  next();
+});
 
 // Connect to MongoDB
 mongoose
