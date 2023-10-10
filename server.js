@@ -10,6 +10,8 @@ const session = require("express-session");
 const passport = require("passport");
 const passportConfig = require("./middleware/passport");
 
+
+
 const app = express();
 
 app.set('trust proxy', 1); // trust first proxy, important if your app is behind a proxy like nginx, which is often the case in hosted environments
@@ -40,6 +42,13 @@ app.use(cors({
 }));
 
 
+if (process.env.NODE_ENV === 'development') {
+  console.log('Running in development mode!');
+} else if (process.env.NODE_ENV === 'production') {
+  console.log('Running in production mode!');
+}
+
+
 // Initializing Session
 app.use(
   session({
@@ -49,7 +58,7 @@ app.use(
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }), // use connect-mongo as session store
     cookie: {
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'none',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
   },
   })
 );
