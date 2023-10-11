@@ -31,7 +31,7 @@ const allowedOrigins = [
   'https://progressexerciselog.netlify.app',
   'https://progress-exercise-and-rehab-log-app.onrender.com',
   'http://localhost:3000',
-  'http://localhost:5500',
+  'http://localhost:5500/posts',
   'https://react-progress-app-frontend.vercel.app',
   'https://react-progress-app-frontend-jqp7x766s-isaiah-sanchezs-projects.vercel.app'
 ];
@@ -57,6 +57,13 @@ if (process.env.NODE_ENV === 'development') {
   console.log('Running in production mode!');
 }
 
+if (process.env.NODE_ENV === 'production') {
+  sameSiteSetting = 'none';
+  secureSetting = true;
+} else {
+  sameSiteSetting = 'lax';
+  secureSetting = false
+}
 
 // Initializing Session
 app.use(
@@ -64,13 +71,16 @@ app.use(
     secret: process.env.SESSION_KEY,
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }), // use connect-mongo as session store
+    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
     cookie: {
-      secure: 'false', // this makes it so if you set the env in my file to development then this state evaluate to false which would make secure false run which is good on development but when env is set to production it matches which evaluates to true which doesnt all cross
-      sameSite: 'none',
-  },
+      httpOnly: true,
+      maxAge: 7200000,
+      secure: secureSetting,
+      sameSite: sameSiteSetting
+    }    
   })
 );
+
 
 // Initializing Passport
 app.use(passport.initialize());
