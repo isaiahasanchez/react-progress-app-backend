@@ -31,7 +31,8 @@ const allowedOrigins = [
   'https://progressexerciselog.netlify.app',
   'https://progress-exercise-and-rehab-log-app.onrender.com',
   'http://localhost:3000',
-  'http://localhost:5500' // add this
+  'http://localhost:5500',
+  'https://react-progress-app-frontend.vercel.app/',
 ];
 
 app.use(cors({
