@@ -33,6 +33,7 @@ const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:5500',
   'https://react-progress-app-frontend.vercel.app',
+  'https://react-progress-app-frontend-jqp7x766s-isaiah-sanchezs-projects.vercel.app'
 ];
 
 app.use(cors({
