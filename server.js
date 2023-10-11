@@ -19,8 +19,8 @@ app.use(express.json());
 
 // Below are the origins that Cors will allow to work.
 const allowedOrigins = [
-  'https://progressexerciselog.netlify.app',
-  'http://localhost:3001' // add this
+  'https://react-progress-app-frontend.vercel.app/',
+  'http://localhost:3000' // add this
 ];
 
 app.use(cors({
