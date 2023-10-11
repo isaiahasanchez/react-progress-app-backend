@@ -64,7 +64,7 @@ app.use(
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }), // use connect-mongo as session store
     cookie: {
-      secure: process.env.NODE_ENV === 'production',
+      secure: 'false', // this makes it so if you set the env in my file to development then this state evaluate to false which would make secure false run which is good on development but when env is set to production it matches which evaluates to true which doesnt all cross
       sameSite: 'none',
   },
   })
@@ -78,8 +78,8 @@ app.use(passport.session());
 app.use("/", progressRoutes);
 
 app.use((req, res, next) => {
-  console.log('Session data:', req.session);
-  next();
+    console.log('Session data:', req.session);
+    next();
 });
 
 // Connect to MongoDB
