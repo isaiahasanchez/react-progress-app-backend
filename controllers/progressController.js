@@ -1,5 +1,6 @@
 const Post = require('../models/progressModel');
 const User = require('../models/user');
+const passport = require('passport')
 
 const createNewUser = async (req,res) => {
     try {
@@ -11,9 +12,39 @@ const createNewUser = async (req,res) => {
       }
 }
 
-const login = async (req,res) => {
-    res.send({ user:req.user })
-}
+const loginController = (req, res, next) => {
+    passport.authenticate("local", (err, user, info) => {
+        if (err) {
+            return res.status(500).json({ message: err.message });
+        }
+        if (!user) {
+            return res.status(401).json({ message: "Login failed. Check email or password." });
+        }
+        req.login(user, (err) => {
+            if (err) {
+                return res.status(500).json({ message: err.message });
+            }
+            res.send({ user: user });
+        });
+    })(req, res, next);
+};
+
+const logoutController = (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            return res.status(500).json({ message: "Could not log out, please try again." });
+        }
+        
+        // if using sessions, remember to also clear the session
+        req.session.destroy((err) => {
+            if (err) {
+                return res.status(500).json({ message: "Could not clear session, please try again." });
+            }
+            
+            res.status(200).json({ message: "Logged out successfully" });
+        });
+    });
+};
 
 const getCurrentUser = (req, res) => {
     res.send(req.user);
@@ -91,6 +122,7 @@ module.exports = {
     deletePost,
     editPost,
     createNewUser,
-    login,
+    login: loginController,
+    logout: logoutController,
     getCurrentUser
 };
