@@ -35,7 +35,6 @@ const logoutController = (req, res) => {
       return res.status(500).json({ message: 'Could not log out, please try again.' });
     }
 
-    // if using sessions, remember to also clear the session
     req.session.destroy((err) => {
       if (err) {
         return res.status(500).json({ message: 'Could not clear session, please try again.' });
