@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "lint": "prettier --check",
+    "prepare": "husky install",
+    "format": "prettier --write ."
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "connect-mongo": "^5.0.0",
@@ -10,5 +15,22 @@
     "mongoose": "^7.4.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.52.0",
+    "eslint-plugin-react": "^7.33.2",
+    "husky": "^8.0.3",
+    "install": "0.13.0",
+    "lint-staged": "^15.0.2",
+    "npm": "10.2.1",
+    "prettier": "^3.0.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
