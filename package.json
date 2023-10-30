@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "start": "node server.js",
     "lint": "prettier --check",
     "prepare": "husky install",
     "format": "prettier --write ."
@@ -14,7 +15,9 @@
     "express-session": "^1.17.3",
     "mongoose": "^7.4.1",
     "passport": "^0.6.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "helmet": "^6.0.0",
+    "express-rate-limit": "^6.0.0"
   },
   "devDependencies": {
     "eslint": "^8.52.0",
@@ -24,6 +27,9 @@
     "lint-staged": "^15.0.2",
     "npm": "10.2.1",
     "prettier": "^3.0.3"
+  },
+  "engines": {
+    "node": "20.5.1"
   },
   "husky": {
     "hooks": {
