@@ -1,55 +1,43 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-require("dotenv").config();
-const MongoStore = require("connect-mongo");
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+require('dotenv').config();
+const MongoStore = require('connect-mongo');
 
-const progressRoutes = require("./routes/progressRoutes");
+const progressRoutes = require('./routes/progressRoutes');
 
-const session = require("express-session");
-const passport = require("passport");
-const passportConfig = require("./middleware/passport");
-
-
+const session = require('express-session');
+const passport = require('passport');
+const passportConfig = require('./middleware/passport');
 
 const app = express();
 
-app.set('trust proxy', 1); // trust first proxy, important if your app is behind a proxy like nginx, which is often the case in hosted environments
-
+app.set('trust proxy', 1); // trust first proxy, important if app is behind a proxy like nginx
 
 app.use(express.json());
-
-// Add a middleware for request logging:
-app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} to ${req.url}`);
-  console.log('Headers:', JSON.stringify(req.headers));
-  next();
-});
 
 // Below are the origins that Cors will allow to work.
 const allowedOrigins = [
   'https://progressexerciselog.netlify.app',
-  'https://progress-exercise-and-rehab-log-app.onrender.com',
   'http://localhost:3000',
   'http://localhost:5500/posts',
-  'https://react-progress-app-frontend.vercel.app',
-  'https://react-progress-app-frontend-jqp7x766s-isaiah-sanchezs-projects.vercel.app'
 ];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS policy switch it up'));
-    }
-  },
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
-}));
-
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS policy switch it up'));
+      }
+    },
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  }),
+);
 
 if (process.env.NODE_ENV === 'development') {
   console.log('Running in development mode!');
@@ -62,7 +50,7 @@ if (process.env.NODE_ENV === 'production') {
   secureSetting = true;
 } else {
   sameSiteSetting = 'lax';
-  secureSetting = false
+  secureSetting = false;
 }
 
 // Initializing Session
@@ -76,28 +64,22 @@ app.use(
       httpOnly: true,
       maxAge: 7200000,
       secure: secureSetting,
-      sameSite: sameSiteSetting
-    }    
-  })
+      sameSite: sameSiteSetting,
+    },
+  }),
 );
-
 
 // Initializing Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Use your routes after initializing passport and session
-app.use("/", progressRoutes);
-
-app.use((req, res, next) => {
-    console.log('Session data:', req.session);
-    next();
-});
+// Use routes after initializing passport and session
+app.use('/', progressRoutes);
 
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("Connected to DB"))
+  .then(() => console.log('Connected to DB'))
   .catch((error) => console.log(error.message));
 
 // Start the server

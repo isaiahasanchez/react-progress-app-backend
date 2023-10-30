@@ -1,3 +1,4 @@
+// Added this when adding the prettier files and husky precommit in package.json could potentially decide if I want to use in the future or not
 module.exports = {
   env: {
     browser: true,
