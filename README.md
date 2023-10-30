@@ -1,6 +1,11 @@
-# Progress Exercise and Rehab Log App - Backend
+# Progress Exercise Log - Backend
 
 This repository contains the backend API for the Progress Exercise and Rehab Log App, a platform for tracking and logging rehabilitation exercises.
+
+Click here to go to the frontend. [https://github.com/isaiahasanchez/react-progress-app-frontend](https://github.com/isaiahasanchez/react-progress-app-frontend)
+
+<img width="1112" alt="progress exercise" src="https://github.com/isaiahasanchez/react-progress-app-backend/assets/124002003/3429d20a-2605-4432-9542-4cd19eabb07d">
+
 
 ## Table of Contents
 
