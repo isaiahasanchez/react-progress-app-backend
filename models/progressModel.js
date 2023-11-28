@@ -5,16 +5,16 @@ const postSchema = new mongoose.Schema({
   equipment: String,
   image: String,
   sets: String,
-  editMode: Boolean,
+  // editMode: Boolean,
   lastDateEdited: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   userId: {
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User', 
-    required: true
-  }
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
 });
 
 const Post = mongoose.model('Post', postSchema);
