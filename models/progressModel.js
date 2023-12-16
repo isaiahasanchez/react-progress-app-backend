@@ -5,7 +5,6 @@ const postSchema = new mongoose.Schema({
   equipment: String,
   image: String,
   sets: String,
-  // editMode: Boolean,
   lastDateEdited: {
     type: Date,
     default: Date.now,

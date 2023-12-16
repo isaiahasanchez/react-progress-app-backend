@@ -62,6 +62,7 @@ const getAllPosts = async (req, res) => {
 
 const getOnePost = async (req, res) => {
   try {
+    //  By incorporating userId in the query, you verify that the requested post belongs to the authenticated user, thus preventing unauthorized access or modification. Without this check, authenticated users could potentially manipulate req.params.id to access other users' data. This double-check not only enforces data isolation between users but also adheres to security best practices, guarding against potential vulnerabilities in user-specific data handling.
     const userId = req.user._id; // Getting the user id from the session
     const post = await Post.findOne({ _id: req.params.id, userId });
     if (!post) return res.status(404).send('Post not found');
@@ -76,7 +77,7 @@ const createNewPost = async (req, res) => {
   try {
     const newPost = new Post({
       ...req.body,
-      userId: req.user._id, // assuming 'req.user' holds the logged-in user
+      userId: req.user._id,
     });
     const savedPost = await newPost.save();
     res.send(savedPost);
