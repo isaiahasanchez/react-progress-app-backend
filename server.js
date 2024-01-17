@@ -20,7 +20,7 @@ app.use(express.json());
 const allowedOrigins = [
   'https://progressexerciselog.netlify.app',
   'http://localhost:3000',
-  'http://localhost:5500/posts',
+  'http://localhost:5500/exercises',
 ];
 
 app.use(

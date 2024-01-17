@@ -18,7 +18,7 @@ Click here to go to the frontend. [https://github.com/isaiahasanchez/react-progr
 ## Features
 
 - User authentication and session management
-- CRUD operations for posts (Create, Read, Update, Delete)
+- CRUD operations for exercises (Create, Read, Update, Delete)
 - Secure MongoDB storage
 - Error handling and validations
 
@@ -60,8 +60,8 @@ Click here to go to the frontend. [https://github.com/isaiahasanchez/react-progr
    ```
 
 ## Endpoints
-- /posts: Fetch all posts
-- /posts/:id: Interact with a specific post (get, update, delete)
+- /exercises: Fetch all exercises
+- /exercises/:id: Interact with a specific exercise (get, update, delete)
 - /login: Authenticate a user
 - /register: Register a new user
 - /logout: Log out an authenticated user

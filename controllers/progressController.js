@@ -1,4 +1,4 @@
-const Post = require('../models/progressModel');
+const Exercise = require('../models/progressModel');
 const User = require('../models/user');
 const passport = require('passport');
 
@@ -49,48 +49,48 @@ const getCurrentUser = (req, res) => {
   res.send(req.user);
 };
 
-const getAllPosts = async (req, res) => {
+const getAllExercises = async (req, res) => {
   try {
     const userId = req.user._id; // Getting the user id from the session
-    const posts = await Post.find({ userId }); // Finding posts related to the user
-    res.send(posts);
+    const exercises = await Exercise.find({ userId }); // Finding exercises related to the user
+    res.send(exercises);
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
 };
 
-const getOnePost = async (req, res) => {
+const getOneExercise = async (req, res) => {
   try {
-    //  By incorporating userId in the query, you verify that the requested post belongs to the authenticated user, thus preventing unauthorized access or modification. Without this check, authenticated users could potentially manipulate req.params.id to access other users' data. This double-check not only enforces data isolation between users but also adheres to security best practices, guarding against potential vulnerabilities in user-specific data handling.
+    //  By incorporating userId in the query, you verify that the requested exercise belongs to the authenticated user, thus preventing unauthorized access or modification. Without this check, authenticated users could potentially manipulate req.params.id to access other users' data. This double-check not only enforces data isolation between users but also adheres to security best practices, guarding against potential vulnerabilities in user-specific data handling.
     const userId = req.user._id; // Getting the user id from the session
-    const post = await Post.findOne({ _id: req.params.id, userId });
-    if (!post) return res.status(404).send('Post not found');
-    res.send(post);
+    const exercise = await Exercise.findOne({ _id: req.params.id, userId });
+    if (!exercise) return res.status(404).send('Exercise not found');
+    res.send(exercise);
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
 };
 
-const createNewPost = async (req, res) => {
+const createNewExercise = async (req, res) => {
   try {
-    const newPost = new Post({
+    const newExercise = new Exercise({
       ...req.body,
       userId: req.user._id,
     });
-    const savedPost = await newPost.save();
-    res.send(savedPost);
+    const savedExercise = await newExercise.save();
+    res.send(savedExercise);
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
 };
 
-const editPost = async (req, res) => {
+const editExercise = async (req, res) => {
   try {
     const userId = req.user._id; // Getting the user id from the session
-    const updatedPost = await Post.findOneAndUpdate(
+    const updatedExercise = await Exercise.findOneAndUpdate(
       { _id: req.params.id, userId },
       {
         ...req.body,
@@ -98,20 +98,20 @@ const editPost = async (req, res) => {
       },
       { new: true },
     );
-    if (!updatedPost) return res.status(404).send('Post not found');
-    res.send(updatedPost);
+    if (!updatedExercise) return res.status(404).send('Exercise not found');
+    res.send(updatedExercise);
   } catch (error) {
     console.error(error);
-    res.status(422).send('Error updating post');
+    res.status(422).send('Error updating exercise');
   }
 };
 
-const deletePost = async (req, res) => {
+const deleteExercise = async (req, res) => {
   try {
     const userId = req.user._id; // Getting the user id from the session
-    const deletedPost = await Post.findOneAndDelete({ _id: req.params.id, userId });
-    if (!deletedPost) return res.status(404).send('Post not found');
-    res.status(200).send('Post Deleted');
+    const deletedExercise = await Exercise.findOneAndDelete({ _id: req.params.id, userId });
+    if (!deletedExercise) return res.status(404).send('Exercise not found');
+    res.status(200).send('Exercise Deleted');
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
@@ -119,11 +119,11 @@ const deletePost = async (req, res) => {
 };
 
 module.exports = {
-  getAllPosts,
-  getOnePost,
-  createNewPost,
-  deletePost,
-  editPost,
+  getAllExercises,
+  getOneExercise,
+  createNewExercise,
+  deleteExercise,
+  editExercise,
   createNewUser,
   login: loginController,
   logout: logoutController,

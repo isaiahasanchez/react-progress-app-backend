@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const postSchema = new mongoose.Schema({
+const exerciseSchema = new mongoose.Schema({
   exercise: String,
   equipment: String,
   image: String,
@@ -16,5 +16,5 @@ const postSchema = new mongoose.Schema({
   },
 });
 
-const Post = mongoose.model('Post', postSchema);
-module.exports = Post;
+const Exercise = mongoose.model('Exercise', exerciseSchema);
+module.exports = Exercise;
