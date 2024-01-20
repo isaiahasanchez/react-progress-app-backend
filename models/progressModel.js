@@ -4,6 +4,7 @@ const exerciseSchema = new mongoose.Schema({
   exercise: String,
   equipment: String,
   image: String,
+  // Change sets to an array once frontend feature branch finishes
   sets: String,
   lastDateEdited: {
     type: Date,
