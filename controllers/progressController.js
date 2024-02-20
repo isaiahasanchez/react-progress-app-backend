@@ -51,8 +51,8 @@ const getCurrentUser = (req, res) => {
 
 const getAllExercises = async (req, res) => {
   try {
-    const userId = req.user._id; // Getting the user id from the session
-    const exercises = await Exercise.find({ userId }); // Finding exercises related to the user
+    const userId = req.user._id;
+    const exercises = await Exercise.find({ userId });
     res.send(exercises);
   } catch (error) {
     console.error(error);
@@ -62,8 +62,7 @@ const getAllExercises = async (req, res) => {
 
 const getOneExercise = async (req, res) => {
   try {
-    //  By incorporating userId in the query, you verify that the requested exercise belongs to the authenticated user, thus preventing unauthorized access or modification. Without this check, authenticated users could potentially manipulate req.params.id to access other users' data. This double-check not only enforces data isolation between users but also adheres to security best practices, guarding against potential vulnerabilities in user-specific data handling.
-    const userId = req.user._id; // Getting the user id from the session
+    const userId = req.user._id;
     const exercise = await Exercise.findOne({ _id: req.params.id, userId });
     if (!exercise) return res.status(404).send('Exercise not found');
     res.send(exercise);
@@ -89,7 +88,7 @@ const createNewExercise = async (req, res) => {
 
 const editExercise = async (req, res) => {
   try {
-    const userId = req.user._id; // Getting the user id from the session
+    const userId = req.user._id;
     const updatedExercise = await Exercise.findOneAndUpdate(
       { _id: req.params.id, userId },
       {
@@ -108,7 +107,7 @@ const editExercise = async (req, res) => {
 
 const deleteExercise = async (req, res) => {
   try {
-    const userId = req.user._id; // Getting the user id from the session
+    const userId = req.user._id;
     const deletedExercise = await Exercise.findOneAndDelete({ _id: req.params.id, userId });
     if (!deletedExercise) return res.status(404).send('Exercise not found');
     res.status(200).send('Exercise Deleted');
