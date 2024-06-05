@@ -3,7 +3,8 @@
     "start": "node server.js",
     "lint": "prettier --check",
     "prepare": "husky install",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "build": "echo 'No build step required'"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
